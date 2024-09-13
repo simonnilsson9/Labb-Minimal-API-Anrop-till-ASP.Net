@@ -1,0 +1,45 @@
+﻿@model BookCreateDTO
+
+<h2 class="mt-3">Register a new book</h2>
+
+<hr />
+
+<div class=" row">
+    <div class=" col-md-4">
+        <form asp-action="CreateBook">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="input-group mb-3 mt-2">                
+                <span class="input-group-text rounded-start" id="inputGroup-sizing-default">Title</span>
+                <input asp-for="Title" class="form-control rounded-end" placeholder="Title" aria-label="Title" aria-describedby="input" />                
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="input-group mb-3 mt-2">
+                <span class="input-group-text rounded-start" id="inputGroup-sizing-default">Author</span>
+                <input asp-for="Author" class="form-control rounded-end" placeholder="Author" aria-label="Title" aria-describedby="input" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+
+            <div class="input-group mb-3 mt-2">
+                <span class="input-group-text rounded-start" id="inputGroup-sizing-default">Year</span>
+                <input asp-for="PublicationYear" class="form-control rounded-end" placeholder="Publication year" aria-label="Title" aria-describedby="input" />
+            </div>
+
+            <div class="input-group mb-3 mt-2">
+                <span class="input-group-text rounded-start" id="inputGroup-sizing-default">Genre</span>
+                <input asp-for="Genre" class="form-control rounded-end" placeholder="Genre" aria-label="Title" aria-describedby="input" />
+            </div>
+
+            <div class="input-group mb-3 mt-4">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-4 text-center">
+    <a asp-action="Start" class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Return Home
+    </a>
+</div>

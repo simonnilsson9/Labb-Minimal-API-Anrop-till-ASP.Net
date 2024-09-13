@@ -1,0 +1,52 @@
+﻿@model BookInfoDTO
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Delete Book</h2>
+    <hr class="mb-4" />
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="DeleteBook">
+                <input asp-for="ID" type="hidden" />
+
+                <div class="border rounded p-4 shadow-sm bg-light">
+                    <h3 class="mb-4 text-center">Book Details</h3>
+
+                    <!-- Title -->
+                    <div class="input-group mb-4">
+                        <span class="input-group-text rounded-start">Title</span>
+                        <input asp-for="Title" class="form-control rounded-end" disabled />
+                    </div>
+
+                    <!-- Author -->
+                    <div class="input-group mb-4">
+                        <span class="input-group-text rounded-start">Author</span>
+                        <input asp-for="Author" class="form-control rounded-end" disabled />
+                    </div>
+
+                    <!-- Publication Year -->
+                    <div class="input-group mb-4">
+                        <span class="input-group-text rounded-start">Year</span>
+                        <input asp-for="PublicationYear" class="form-control rounded-end" disabled />
+                    </div>
+
+                    <!-- Genre -->
+                    <div class="input-group mb-4">
+                        <span class="input-group-text rounded-start">Genre</span>
+                        <input asp-for="Genre" class="form-control rounded-end" disabled />
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex justify-content-center mt-4">
+                        <input type="submit" value="Delete" class="btn btn-danger me-3" />
+                        <a asp-action="Start" class="btn btn-secondary">
+                            <i class="fa-solid fa-arrow-left"></i> Return Home
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

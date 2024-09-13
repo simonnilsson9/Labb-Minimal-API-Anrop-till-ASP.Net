@@ -1,0 +1,6 @@
+@Labb__Minimal_API___Anrop_till_ASP.Net_HostAddress = http://localhost:5143
+
+GET {{Labb__Minimal_API___Anrop_till_ASP.Net_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

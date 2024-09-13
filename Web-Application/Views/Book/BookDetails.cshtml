@@ -1,0 +1,67 @@
+﻿@model BookInfoDTO
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h2 class="mb-0">More Info</h2>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.ID)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.ID)
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Author)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Author)
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Genre)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Genre)
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">
+                    Publication Year
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.PublicationYear)
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">
+                    Available To Rent
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.IsAvailable)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-4 text-center">
+        <a asp-action="Start" class="btn btn-secondary">
+            <i class="fa-solid fa-arrow-left"></i> Return Home
+        </a>
+    </div>
+</div>

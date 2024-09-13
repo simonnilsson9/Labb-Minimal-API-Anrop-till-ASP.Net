@@ -1,0 +1,38 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.input-group {
+    display: flex;
+    width: 85%;
+}
+
+.input-group-text {
+    flex: 0 0 20%; /* 25% width */
+    max-width: 20%; /* Prevents growing beyond 25% */
+}
+
+.form-control {
+    flex: 1; /* Takes up the remaining space */
+    min-width: 0; /* Prevents shrinking beyond its content */
+}
+

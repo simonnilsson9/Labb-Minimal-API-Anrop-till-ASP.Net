@@ -76,6 +76,7 @@ namespace Web_Application.Controllers
 			if(response != null && response.IsSuccess)
 			{
 				list = JsonConvert.DeserializeObject<List<BookInfoDTO>>(Convert.ToString(response.Result));
+				list = list.OrderBy(b => b.Title).ToList();
             }
             return View(list);
 
@@ -96,7 +97,7 @@ namespace Web_Application.Controllers
             return View();
 		}
 		
-		public async Task<IActionResult> BookDetails(int id)
+		public async Task<IActionResult> BookDetails(Guid id)
 		{
 			BookInfoDTO bDTO = new BookInfoDTO();
 
@@ -132,7 +133,7 @@ namespace Web_Application.Controllers
 			return View(model);
 		}
 
-		public async Task<IActionResult> UpdateBook(int id)
+		public async Task<IActionResult> UpdateBook(Guid id)
 		{
 			var response = await _bookService.GetBookById<ResponseDTO>(id);
 
@@ -161,7 +162,7 @@ namespace Web_Application.Controllers
 			return View(model);
 		}
 
-		public async Task<IActionResult> DeleteBook(int id)
+		public async Task<IActionResult> DeleteBook(Guid id)
 		{
 			var response = await _bookService.GetBookById<ResponseDTO>(id);
 
@@ -175,7 +176,7 @@ namespace Web_Application.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> DeleteBook(BookInfoDTO model)
+		public async Task<IActionResult> DeleteBook(Book model)
 		{
 			if (ModelState.IsValid)
 			{

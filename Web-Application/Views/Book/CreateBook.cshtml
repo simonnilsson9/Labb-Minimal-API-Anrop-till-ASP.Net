@@ -9,11 +9,12 @@
         <form asp-action="CreateBook">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="input-group mb-3 mt-2">                
+            <div class="input-group mb-3 mt-2">
                 <span class="input-group-text rounded-start" id="inputGroup-sizing-default">Title</span>
-                <input asp-for="Title" class="form-control rounded-end" placeholder="Title" aria-label="Title" aria-describedby="input" />                
+                <input asp-for="Title" class="form-control rounded-end" placeholder="Title" aria-label="Title" aria-describedby="input" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+            
 
             <div class="input-group mb-3 mt-2">
                 <span class="input-group-text rounded-start" id="inputGroup-sizing-default">Author</span>
@@ -24,11 +25,13 @@
             <div class="input-group mb-3 mt-2">
                 <span class="input-group-text rounded-start" id="inputGroup-sizing-default">Year</span>
                 <input asp-for="PublicationYear" class="form-control rounded-end" placeholder="Publication year" aria-label="Title" aria-describedby="input" />
+                <span asp-validation-for="PublicationYear" class="text-danger"></span>
             </div>
 
             <div class="input-group mb-3 mt-2">
                 <span class="input-group-text rounded-start" id="inputGroup-sizing-default">Genre</span>
                 <input asp-for="Genre" class="form-control rounded-end" placeholder="Genre" aria-label="Title" aria-describedby="input" />
+                <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
 
             <div class="input-group mb-3 mt-4">

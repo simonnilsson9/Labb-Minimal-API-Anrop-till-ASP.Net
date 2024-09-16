@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Labb__Minimal_API___Anrop_till_ASP.Net.Models;
 using Labb__Minimal_API___Anrop_till_ASP.Net.Models.DTO;
 using Labb__Minimal_API___Anrop_till_ASP.Net.Repository;
@@ -16,7 +17,7 @@ namespace Labb__Minimal_API___Anrop_till_ASP.Net.EndPoints
 
             app.MapGet("/api/books/genre/{genre}", GetBooksByGenre).WithName("GetBooksByGenre").Produces<APIResponse>();
 
-            app.MapGet("/api/book/{id:int}", GetBookById).WithName("GetBook").Produces<APIResponse>();
+            app.MapGet("/api/book/{id:guid}", GetBookById).WithName("GetBook").Produces<APIResponse>();
 
             app.MapGet("/api/book/{title}", GetBookByTitle).WithName("GetBookByTitle").Produces<APIResponse>();
 
@@ -24,7 +25,7 @@ namespace Labb__Minimal_API___Anrop_till_ASP.Net.EndPoints
 
 			app.MapPut("/api/book", UpdateBook).WithName("UpdateBook").Accepts<BookInfoDTO>("application/json").Produces<BookInfoDTO>(200).Produces(400);
 
-			app.MapDelete("/api/book/{id:int}", DeleteBook).WithName("DeleteBook");
+			app.MapDelete("/api/book/{id:guid}", DeleteBook).WithName("DeleteBook");
 		}
 
 		private async static Task<IResult> GetAllBooks(IBookRepository bookRepository)
@@ -38,7 +39,7 @@ namespace Labb__Minimal_API___Anrop_till_ASP.Net.EndPoints
 			return Results.Ok(response);
 		}
 
-		private async static Task<IResult> GetBookById(IBookRepository bookRepository, int id)
+		private async static Task<IResult> GetBookById(IBookRepository bookRepository, Guid id)
 		{
 			APIResponse response = new APIResponse();
 			
@@ -118,43 +119,64 @@ namespace Labb__Minimal_API___Anrop_till_ASP.Net.EndPoints
             return Results.Ok(response);
         }
 
-        private async static Task<IResult> CreateBook(IBookRepository bookRepository, IMapper mapper, BookCreateDTO bookCreateDTO)
+        private async static Task<IResult> CreateBook(IBookRepository bookRepository, IMapper mapper, BookCreateDTO bookCreateDTO, IValidator<BookCreateDTO> validator)
 		{
-			APIResponse response = new() {IsSuccess = false, StatusCode = System.Net.HttpStatusCode.BadRequest };
+            APIResponse response = new() { IsSuccess = false, StatusCode = System.Net.HttpStatusCode.BadRequest };
 
-			if(bookRepository.GetBookAsyncByTitle(bookCreateDTO.Title).GetAwaiter().GetResult() != null)
-			{
-				response.ErrorMessages.Add("Book already exists!");
-				return Results.BadRequest(response);
-			}
+            var validationResult = await validator.ValidateAsync(bookCreateDTO);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    response.ErrorMessages.Add(error.ErrorMessage);
+                }
+                return Results.BadRequest(response);
+            }
 
-			Book book = mapper.Map<Book>(bookCreateDTO);
-			await bookRepository.CreateBookAsync(book);
-			await bookRepository.SaveAsync();
-			BookInfoDTO bookInfoDTO = mapper.Map<BookInfoDTO>(book);
+            if (await bookRepository.GetBookAsyncByTitle(bookCreateDTO.Title) != null)
+            {
+                response.ErrorMessages.Add("Book already exists!");
+                return Results.BadRequest(response);
+            }
 
-			response.Result = bookInfoDTO;
-			response.IsSuccess = true;
-			response.StatusCode = System.Net.HttpStatusCode.OK;
+            Book book = mapper.Map<Book>(bookCreateDTO);
+            await bookRepository.CreateBookAsync(book);
+            await bookRepository.SaveAsync();
+            BookInfoDTO bookInfoDTO = mapper.Map<BookInfoDTO>(book);
 
-			return Results.Ok(response);
-		}
+            response.Result = bookInfoDTO;
+            response.IsSuccess = true;
+            response.StatusCode = System.Net.HttpStatusCode.OK;
 
-		private async static Task<IResult> UpdateBook(IBookRepository bookRepository, IMapper mapper, BookInfoDTO bookUpdateDTO)
-		{
-			APIResponse response = new() { IsSuccess = false, StatusCode = System.Net.HttpStatusCode.BadRequest };
+            return Results.Ok(response);
+        }
 
-			await bookRepository.UpdateBookAsync(mapper.Map<Book>(bookUpdateDTO));
-			await bookRepository.SaveAsync();
+        private async static Task<IResult> UpdateBook(IBookRepository bookRepository, IMapper mapper, BookInfoDTO bookUpdateDTO, IValidator<BookInfoDTO> validator)
+        {
+            APIResponse response = new() { IsSuccess = false, StatusCode = System.Net.HttpStatusCode.BadRequest };
 
-			response.Result = mapper.Map<BookInfoDTO>(await bookRepository.GetBookAsyncById(bookUpdateDTO.ID));
-			response.IsSuccess = true;
-			response.StatusCode = System.Net.HttpStatusCode.OK;
+            var validationResult = await validator.ValidateAsync(bookUpdateDTO);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    response.ErrorMessages.Add(error.ErrorMessage);
+                }
+                return Results.BadRequest(response);
+            }
 
-			return Results.Ok(response);
-		}
+            await bookRepository.UpdateBookAsync(mapper.Map<Book>(bookUpdateDTO));
+            await bookRepository.SaveAsync();
 
-		private async static Task<IResult> DeleteBook(IBookRepository bookRepository, int id)
+            response.Result = mapper.Map<BookInfoDTO>(await bookRepository.GetBookAsyncById(bookUpdateDTO.ID));
+            response.IsSuccess = true;
+            response.StatusCode = System.Net.HttpStatusCode.OK;
+
+            return Results.Ok(response);
+        }
+
+
+        private async static Task<IResult> DeleteBook(IBookRepository bookRepository, Guid id)
 		{
 			APIResponse response = new() { IsSuccess = false, StatusCode = System.Net.HttpStatusCode.BadRequest };
 

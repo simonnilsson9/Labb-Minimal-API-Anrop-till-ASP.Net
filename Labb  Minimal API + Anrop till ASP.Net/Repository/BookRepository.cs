@@ -26,7 +26,7 @@ namespace Labb__Minimal_API___Anrop_till_ASP.Net.Repository
 			return await _db.Books.ToListAsync();
 		}
 
-		public async Task<Book> GetBookAsyncById(int id)
+		public async Task<Book> GetBookAsyncById(Guid id)
 		{
 			return await _db.Books.FirstOrDefaultAsync(b => b.ID == id);
 		}

@@ -29,18 +29,21 @@
                     <div class="input-group mb-4">
                         <span class="input-group-text rounded-start">Year</span>
                         <input asp-for="PublicationYear" class="form-control rounded-end" placeholder="Publication Year" aria-label="Year" />
+                        <span asp-validation-for="PublicationYear" class="text-danger ms-2"></span>
                     </div>
 
                     <!-- Genre Input -->
                     <div class="input-group mb-4">
                         <span class="input-group-text rounded-start">Genre</span>
                         <input asp-for="Genre" class="form-control rounded-end" placeholder="Genre" aria-label="Genre" />
+                        <span asp-validation-for="Genre" class="text-danger ms-2"></span>
                     </div>
 
                     <!-- Description Input -->
                     <div class="input-group mb-4">
                         <span class="input-group-text rounded-start">About</span>
                         <input asp-for="Description" class="form-control rounded-end" placeholder="Description" aria-label="Description" />
+                        <span asp-validation-for="Description" class="text-danger ms-2"></span>
                     </div>
 
                     <!-- Available Checkbox -->

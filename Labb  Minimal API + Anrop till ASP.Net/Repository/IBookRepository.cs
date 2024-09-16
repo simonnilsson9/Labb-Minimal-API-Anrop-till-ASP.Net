@@ -7,7 +7,7 @@ namespace Labb__Minimal_API___Anrop_till_ASP.Net.Repository
 		Task<IEnumerable<Book>> GetAllBooksAsync();
         Task<IEnumerable<Book>> GetBooksByAuthorAsync(string author);
 		Task<IEnumerable<Book>> GetBooksByGenre(string genre);
-        Task<Book> GetBookAsyncById(int id);
+        Task<Book> GetBookAsyncById(Guid id);
 		Task<Book> GetBookAsyncByTitle(string title);
         Task CreateBookAsync(Book book);
 		Task UpdateBookAsync(Book book);

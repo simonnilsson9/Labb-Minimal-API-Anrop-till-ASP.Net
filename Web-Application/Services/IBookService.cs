@@ -5,12 +5,12 @@ namespace Web_Application.Services
 	public interface IBookService
 	{
 		Task<T> GetAllBooks<T>();
-		Task<T> GetBookById<T>(int id);
+		Task<T> GetBookById<T>(Guid id);
 		Task<T> GetBooksByAuthor<T>(string author);
 		Task<T> GetBooksByGenre<T>(string genre);
 		Task<T> CreateBookAsync<T>(BookCreateDTO bookDTO);
 		Task<T> UpdateBookAsync<T>(BookInfoDTO bookDTO);
-		Task<T> DeleteBookAsync<T>(int id);
+		Task<T> DeleteBookAsync<T>(Guid id);
 		Task<T> GetBookByTitle<T>(string title);
 	}
 }

@@ -21,7 +21,7 @@ namespace Web_Application.Services
 			});
 		}
 
-		public async Task<T> DeleteBookAsync<T>(int id)
+		public async Task<T> DeleteBookAsync<T>(Guid id)
 		{
 			return await SendAsync<T>(new Models.APIRequest
 			{
@@ -42,7 +42,7 @@ namespace Web_Application.Services
 			});
 		}
 
-		public async Task<T> GetBookById<T>(int id)
+		public async Task<T> GetBookById<T>(Guid id)
 		{
 			return await SendAsync<T>(new Models.APIRequest
 			{
